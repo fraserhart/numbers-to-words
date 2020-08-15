@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "bin": {
-    "hello": "./bin/index.js"
+    "numbers-to-words": "./bin/index.js"
   },
   "author": "Fraser Hart",
   "license": "ISC",
