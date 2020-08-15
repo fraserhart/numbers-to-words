@@ -4,10 +4,11 @@
 
 ## Installation
 
-`npm install -g`
+`npm i -g`
 
 ### Testing
 
+`npm i`
 `npm test`
 
 ### To run
