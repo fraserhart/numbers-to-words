@@ -1,0 +1,17 @@
+{
+  "name": "loveholidays",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "bin": {
+    "hello": "./bin/index.js"
+  },
+  "author": "Fraser Hart",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.4.0"
+  }
+}
