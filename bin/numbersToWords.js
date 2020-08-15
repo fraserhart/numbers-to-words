@@ -1,7 +1,7 @@
 const MIN_INPUT = 0;
 const MAX_INPUT = 100000;
 
-const SINGLES = [
+const SINGLES_LESS_THAN_TWENTY = [
   "",
   "one",
   "two",
@@ -24,7 +24,7 @@ const SINGLES = [
   "nineteen",
 ];
 
-const TENS = [
+const TENS_LESS_THAN_A_HUNDRED = [
   "",
   "",
   "twenty",
@@ -37,50 +37,58 @@ const TENS = [
   "ninety",
 ];
 
-const HUNDRED = "hundred";
-const THOUSAND = "thousand";
-const AND = "and";
+const WORDS = {
+  HUNDRED: "hundred",
+  THOUSAND: "thousand",
+  AND: "and",
+};
+
+const ZERO = 0;
+const TEN = 10;
+const TWENTY = 20;
+const ONE_HUNDRED = 100;
+const ONE_THOUSAND = 1000;
 
 const numbersToWords = (number) => {
   if (isNaN(number) || number < MIN_INPUT || number > MAX_INPUT)
     return "invalid input";
 
-  if (number == 0) return "zero";
+  if (number == ZERO) return "zero";
 
   const numString = "" + number;
 
-  if (numString < 20) {
-    return SINGLES[parseInt(numString)];
+  if (numString < TWENTY) {
+    return SINGLES_LESS_THAN_TWENTY[parseInt(numString)];
   }
 
-  if (numString < 100) {
-    if (numString % 10 === 0) {
-      return TENS[numString / 10];
+  if (numString < ONE_HUNDRED) {
+    if (numString % TEN === 0) {
+      return TENS_LESS_THAN_A_HUNDRED[numString / TEN];
     }
 
-    return `${numbersToWords(numString[0] * 10)}-${numbersToWords(
+    return `${numbersToWords(numString[0] * TEN)}-${numbersToWords(
       numString[1]
     )}`;
   }
 
-  if (numString < 1000) {
-    if (numString % 100 === 0) {
-      return `${numbersToWords(numString[0])} ${HUNDRED}`;
+  if (numString < ONE_THOUSAND) {
+    if (numString % ONE_HUNDRED === 0) {
+      return `${numbersToWords(numString[0])} ${WORDS.HUNDRED}`;
     }
 
-    return `${numbersToWords(numString[0])} ${HUNDRED} ${AND} ${numbersToWords(
-      numString - numString[0] * 100
-    )}`;
+    return `${numbersToWords(numString[0])} ${WORDS.HUNDRED} ${
+      WORDS.AND
+    } ${numbersToWords(numString - numString[0] * ONE_HUNDRED)}`;
   }
 
-  if (numString % 1000 === 0) {
-    return `${numbersToWords(numString / 1000)} ${THOUSAND}`;
+  if (numString % ONE_THOUSAND === 0) {
+    return `${numbersToWords(numString / ONE_THOUSAND)} ${WORDS.THOUSAND}`;
   }
 
-  const OPTIONAL_AND = numString.slice(-3) < 100 ? AND + " " : "";
-  return `${numbersToWords(
-    numString.slice(0, -3)
-  )} ${THOUSAND} ${OPTIONAL_AND}${numbersToWords(numString.slice(-3))}`;
+  const OPTIONAL_AND = numString.slice(-3) < ONE_HUNDRED ? WORDS.AND + " " : "";
+  return `${numbersToWords(numString.slice(0, -3))} ${
+    WORDS.THOUSAND
+  } ${OPTIONAL_AND}${numbersToWords(numString.slice(-3))}`;
 };
 
 module.exports = numbersToWords;
