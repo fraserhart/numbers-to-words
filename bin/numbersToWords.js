@@ -1,3 +1,6 @@
+const MIN_INPUT = 0;
+const MAX_INPUT = 100000;
+
 const SINGLES = [
   "",
   "one",
@@ -33,8 +36,6 @@ const TENS = [
   "eighty",
   "ninety",
 ];
-const MIN_INPUT = 0;
-const MAX_INPUT = 100000;
 
 const HUNDRED = "hundred";
 const THOUSAND = "thousand";
@@ -48,25 +49,33 @@ const numbersToWords = (number) => {
 
   const numString = "" + number;
 
-  if (numString < 20) return SINGLES[parseInt(numString)];
+  if (numString < 20) {
+    return SINGLES[parseInt(numString)];
+  }
 
   if (numString < 100) {
-    if (numString % 10 === 0) return TENS[numString / 10];
+    if (numString % 10 === 0) {
+      return TENS[numString / 10];
+    }
+
     return `${numbersToWords(numString[0] * 10)}-${numbersToWords(
       numString[1]
     )}`;
   }
 
   if (numString < 1000) {
-    if (numString % 100 === 0)
+    if (numString % 100 === 0) {
       return `${numbersToWords(numString[0])} ${HUNDRED}`;
+    }
+
     return `${numbersToWords(numString[0])} ${HUNDRED} ${AND} ${numbersToWords(
       numString - numString[0] * 100
     )}`;
   }
 
-  if (numString % 1000 === 0)
+  if (numString % 1000 === 0) {
     return `${numbersToWords(numString / 1000)} ${THOUSAND}`;
+  }
 
   const OPTIONAL_AND = numString.slice(-3) < 100 ? AND + " " : "";
   return `${numbersToWords(
